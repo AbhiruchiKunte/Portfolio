@@ -1,0 +1,944 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #fdfdfd;
+    color: #333;
+    padding-top: 60px; /* adjust based on navbar height */
+    overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+}
+
+/* Navbar Base */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-family: 'Calistoga', cursive;
+    font-size: 24px;
+    color: #212529;
+}
+
+/* Nav Links */
+.nav-links ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #212529;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #0077b6;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    height: 3px;
+    width: 25px;
+    background: #212529; /* Changed to match logo color for better visibility */
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background-color: #343a40; /* Changed background for mobile nav */
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links ul {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 0;
+    }
+
+    .nav-links a {
+        color: #fff; /* White links for mobile nav */
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+}
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    background-color: #343A40; /* Solid dark background as in image 2 */
+    color: #fff;
+    padding: 20px 20px 20px; /* Adjusted padding top to account for fixed navbar */
+    display: flex;
+    justify-content: center; /* Center the hero content */
+    align-items: center;
+    overflow: hidden; /* Important for animation overflow */
+}
+
+.hero-content {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+    align-items: center;
+    justify-content: center; /* Adjust to better position image and text */
+    gap: 100px; /* Space between image and text */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px; /* Add some padding to the content itself */
+}
+
+/* Profile Image */
+.profile-pic {
+    width: 220px; /* Slightly smaller */
+    height: 270px; /* Maintain aspect ratio or adjust as needed */
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    flex-shrink: 0; /* Prevent image from shrinking */
+    background-color: #f0f0f0; /* Placeholder background if image isn't loading */
+    overflow: hidden; /* Ensures the image respects border-radius */
+    opacity: 0; /* Start hidden for animation */
+    transform: scale(0.8); /* Start smaller for animation */
+}
+
+.profile-pic img {
+    display: block; /* Remove extra space below image */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Hero Text Content */
+.hero-text-content {
+    flex-grow: 1; /* Allow text content to take available space */
+    text-align: left; /* Align text to the left */
+}
+
+.hero-text-content h2::after {
+    content: none;
+}
+
+#intro {
+    font-size: 2.2rem;
+    margin: 0 0 1rem; /* Adjust margin */
+    font-family: 'Calistoga', cursive;
+    color: #CED4DA;
+    opacity: 0; /* Start hidden for animation */
+    transform: translateX(-50px); /* Start off-screen left for animation */
+}
+
+#about-me,
+#expertise {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
+    color: #CED4DA;
+    text-align: left; /* Align text to the left */
+    opacity: 0; /* Start hidden for animation */
+    transform: translateX(-50px); /* Start off-screen left for animation */
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px; /* Constrain paragraph width */
+    margin: 1rem 0;
+    opacity: 0; /* Start hidden for animation */
+    transform: translateX(-50px); /* Start off-screen left for animation */
+}
+
+.skills-list ul li {
+    opacity: 0; /* Start hidden for animation */
+    transform: translateY(20px); /* Start below for animation */
+}
+
+/* --- Animations --- */
+
+/* Fade In with Scale (for profile picture) */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.anim-fade-in-scale {
+    animation: fadeInScale 0.8s ease-out forwards;
+    animation-delay: 0.2s; /* Slight delay for the image to appear after page load */
+}
+
+/* Slide In from Right (for text content) */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.anim-slide-right {
+    animation: slideInRight 0.7s ease-out forwards;
+}
+
+/* Slide Up (for list items) */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.anim-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Delay Utility Classes for Staggered Effect */
+.anim-delay-1 { animation-delay: 0.6s; }
+.anim-delay-2 { animation-delay: 0.8s; }
+.anim-delay-3 { animation-delay: 1.0s; }
+.anim-delay-4 { animation-delay: 1.2s; }
+.anim-delay-5 { animation-delay: 1.4s; }
+.anim-delay-6 { animation-delay: 1.6s; }
+.anim-delay-7 { animation-delay: 1.8s; }
+
+
+/* Skills List - Styled as buttons/tags */
+.skills-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills-list li {
+    background-color: #CED4DA;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #212529;
+    text-transform: uppercase;
+    cursor: default;
+    border: 1px solid #CED4DA;
+    transition: all 0.3s ease;
+}
+
+.skills-list li:hover {
+    background-color: #adb5bd;
+    border-color: #adb5bd;
+}
+
+/* Responsive Hero Section */
+@media (max-width: 992px) {
+    .hero-content {
+        gap: 30px;
+    }
+    .profile-pic {
+        width: 180px;
+        height: 230px;
+    }
+    #intro {
+        font-size: 2rem;
+    }
+    #about-me,
+    #expertise {
+        font-size: 1.4rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 70px 15px 10px;
+        min-height: auto; /* Remove min-height on small screens */
+    }
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .profile-pic {
+        width: 160px;
+        height: 200px;
+        border-radius: 15px;
+    }
+
+    #intro {
+        font-size: 1.8rem;
+        margin-top: 5px;
+    }
+
+    #about-me,
+    #expertise {
+        font-size: 1.5rem;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    .skills-list ul {
+        justify-content: left ;
+    }
+}
+
+/* --- TECHNICAL SKILLS SECTION --- */
+.skills-section {
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+}
+
+.skills-section h2 {
+    text-align: center;
+    color: #212529;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.skill-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.1);
+    font-weight: 500;
+    color: #212529;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 120px;
+    
+    /* --- ANIMATION PROPERTIES (Initial State & Transition) --- */
+    /* opacity and transform for initial hidden state are handled by .anim-slide-left / .anim-slide-right classes */
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), /* Custom ease for smooth movement */
+                box-shadow 0.4s ease-out; /* Standard ease for shadow */
+    will-change: transform, box-shadow, opacity; /* Hint to browser for performance */
+    overflow: hidden; /* Ensure content stays within bounds during transforms */
+}
+
+.skill-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.skill-card .skill-logo {
+    max-width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* --- HOVER ANIMATION --- */
+.skill-card:hover {
+    transform: translateY(-8px) scale(1.03); /* Lift up slightly and scale up a bit */
+    box-shadow: 0 8px 20px rgba(0, 119, 182, 0.25); /* More prominent shadow */
+}
+
+/* Cards (Education) */
+.card { /* Used for Certifications */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 119, 182, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Separate wider card for education and work experience */
+.edu-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 6px 12px rgba(0, 119, 182, 0.15);
+    text-align: left; /* Ensure text alignment is left for internal content */
+}
+
+.edu-card h3 {
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.edu-card p {
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* --- Projects Section --- */
+.projects-section {
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+}
+
+.projects-section h2 {
+    text-align: center;
+    color: #212529;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+/* Grid for Projects */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Make the entire project card clickable */
+.project-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex; /* Use flex to make card stretch to grid height if needed */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card-link:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Projects Card Styling - Auto Height */
+.project-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto; /* REMOVED FIXED HEIGHT */
+    min-height: 450px; /* Added a min-height for consistent visual, adjust as needed */
+    width: 100%;
+    overflow: hidden;
+    justify-content: flex-start; /* Align content to the start of the card */
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.project-card-link:hover .project-card img {
+    transform: scale(1.03);
+}
+
+.project-card h3 {
+    margin: 10px 0 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #213547;
+}
+
+.project-card p {
+    font-size: 0.95rem;
+    color: #555;
+    flex-grow: 1; /* Allow paragraph to take available space */
+    margin-bottom: 15px;
+}
+
+/* Tech Stack Tags Container */
+.tech-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto; /* Pushes tags to the bottom */
+    padding-top: 10px;
+}
+
+/* Individual Tech Stack Tags (Buttons) */
+.tech-tag {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tech-tag:hover {
+    background-color: #0077b6;
+    color: #fff;
+}
+
+/* --- Certifications Section --- */
+.certifications-section {
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+}
+
+.certifications-section h2 {
+    text-align: center;
+    color: #212529;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+}
+
+/* Grid for Certifications */
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Make the entire certification card clickable */
+.cert-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex; /* Use flex to make card stretch to grid height if needed */
+    cursor: pointer;
+    transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
+}
+
+.cert-card-link:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Certifications Card Styling - Auto Height */
+.certifications-grid .card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    height: auto; /* REMOVED FIXED HEIGHT */
+    min-height: 380px; /* Added a min-height for consistent visual, adjust as needed */
+    width: 100%;
+    overflow: hidden;
+}
+.certifications-grid .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.cert-card-link:hover .certifications-grid .card img {
+    transform: scale(1.03);
+}
+
+.certifications-grid .card h3 {
+    color: #212529;
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+    flex-grow: 0;
+}
+
+.certifications-grid .card p {
+    font-size: 0.9rem;
+    color: #555;
+    flex-grow: 1; /* Allow paragraph to take available space */
+    margin-bottom: 10px;
+}
+
+.contact-section {
+    padding: 40px 20px;
+    background-color: #f8f8f8;
+    text-align: center; /* Center the section title */
+}
+
+.contact-section h2 {
+   text-align: center;
+    color: #212529;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.centered-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left; /* Keep internal text aligned left */
+}
+
+/* Left Side */
+.contact-text {
+    flex: 1 1 300px;
+    max-width: 400px;
+}
+
+.contact-text h3 {
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.contact-text p {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+/* Right Side Form */
+.contact-form {
+    flex: 1 1 300px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form input,
+.contact-form textarea {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #212529;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #212529;
+}
+
+.contact-form button {
+    padding: 12px;
+    background-color: #343A40;
+    color: white;
+    border: none;
+    border-radius: 66px; /* Slightly more rounded button */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+    background-color: #023e8a;
+    transform: translateY(-2px);
+}
+
+/* Responsive Contact Section */
+@media (max-width: 768px) {
+    .centered-layout {
+        flex-direction: column;
+        align-items: center;
+        text-align: center; /* Center contact details on mobile */
+    }
+
+    .contact-text,
+    .contact-form {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+}
+
+.footer {
+    background-color: #343A40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer p {
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 20px;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+    color: #ffd166;
+    transform: translateY(-2px);
+}
+
+
+/* General Section Styling */
+section {
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+}
+
+section h2 {
+    text-align: center;
+    color: #212529;
+    margin-bottom: 40px;
+    font-size: 30px;
+}
+
+/* --- Animation Defaults (Hidden State) --- */
+/* Elements to be animated are initially hidden/transformed */
+.anim-slide-up,
+.anim-fade-up,
+.anim-fade-in,
+.anim-slide-left,
+.anim-slide-right {
+    opacity: 0;
+    will-change: opacity, transform; /* Optimize for animation */
+}
+
+/* Specific initial transforms */
+.anim-slide-up {
+    transform: translateY(50px);
+}
+.anim-fade-up {
+    transform: translateY(30px);
+}
+.anim-slide-left {
+    transform: translateX(-50px);
+}
+.anim-slide-right {
+    transform: translateX(50px);
+}
+
+/* --- Animation Active State (in-view) --- */
+.anim-slide-up.in-view,
+.anim-fade-up.in-view,
+.anim-fade-in.in-view,
+.anim-slide-left.in-view,
+.anim-slide-right.in-view {
+    opacity: 1;
+    transform: translate(0, 0) scale(1); /* Reset transforms */
+    /* This transition applies to all anim-* classes when they enter view.
+       The --delay is set by JS for staggered effects. */
+    transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1) var(--delay, 0s), 
+                transform 0.7s cubic-bezier(0.23, 1, 0.32, 1) var(--delay, 0s); 
+}
+
+/* Responsive Edu Card */
+@media (max-width: 768px){
+    .edu-card {
+        padding: 20px;
+        max-width: 90%;
+    }
+    .skills-grid {
+        grid-template-columns: 1fr; /* Force single column on mobile for skills grid */
+        padding: 0 5px;
+    }
+
+    .projects-grid,
+    .certifications-grid {
+        grid-template-columns: 1fr;
+        padding: 0 5px;
+    }
+
+    /* MOBILE-SPECIFIC CARD HEIGHT ADJUSTMENTS */
+    .project-card {
+        height: auto; /* Ensure this is auto */
+        min-height: 300px; /* Keep a sensible min-height for layout */
+        padding-bottom: 20px;
+        justify-content: flex-start;
+    }
+
+    .project-card h3 {
+        font-size: 1.15rem;
+        margin: 8px 0 8px;
+    }
+
+    .project-card p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        padding: 0 5px;
+    }
+
+    .certifications-grid .card {
+        height: auto; /* Ensure this is auto */
+        min-height: 250px; /* Keep a sensible min-height for layout */
+        padding-bottom: 20px;
+        justify-content: flex-start;
+    }
+
+    .certifications-grid .card h3 {
+        font-size: 1.05rem;
+        margin-bottom: 6px;
+    }
+
+    .certifications-grid .card p {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+        padding: 0 5px;
+    }
+
+    /* Responsive animation adjustments for general sections (slide-up by default on mobile) */
+    /* This applies to elements like .edu-card or others that have anim-slide-left/right but are NOT .skill-card */
+    .anim-slide-left, .anim-slide-right {
+        /* On mobile, if not a skill card, transform initially from bottom */
+        transform: translateY(30px); 
+    }
+    .anim-slide-left.in-view, .anim-slide-right.in-view {
+        /* Animate to original Y position for non-skill cards */
+        transform: translateY(0); 
+    }
+
+    /* *************************************************************** */
+    /* OVERRIDE: Specific rule for .skill-card elements in .skills-grid on mobile */
+    /* These rules override the general mobile slide-up for skill cards ONLY. */
+    /* They reset the initial transform to translateX for left/right slide-in. */
+    /* *************************************************************** */
+    .skills-grid .skill-card.anim-slide-left {
+        opacity: 0; /* Ensure it starts hidden */
+        transform: translateX(-50px); /* Skill card from left */
+    }
+    .skills-grid .skill-card.anim-slide-right {
+        opacity: 0; /* Ensure it starts hidden */
+        transform: translateX(50px); /* Skill card from right */
+    }
+
+    .skills-grid .skill-card.anim-slide-left.in-view,
+    .skills-grid .skill-card.anim-slide-right.in-view {
+        /* When in view, animate to original position (handled by the main .in-view transition) */
+        opacity: 1; 
+        transform: translateX(0); /* Animate to original X position */
+        /* The transition-delay is applied by JavaScript via --delay */
+    }
+    /* *************************************************************** */
+    /* END OVERRIDE */
+    /* *************************************************************** */
+}
+
+/* Further Responsive Adjustments for general sections */
+@media (max-width: 480px) {
+    body {
+        padding-top: 5px;
+    }
+    .navbar {
+        padding: 10px 15px;
+    }
+    .logo {
+        font-size: 20px;
+    }
+    section {
+        padding: 10px 10px;
+    }
+    section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    .project-card img {
+        height: 150px;
+    }
+    .certifications-grid .card img {
+        height: 150px;
+    }
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+        padding: 10px;
+        font-size: 16px;
+    }
+    .footer p {
+        font-size: 16px;
+    }
+    .social-icons a {
+        font-size: 24px;
+    }
+}
